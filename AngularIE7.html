@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Angular Testing</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+</head>
+
+<script>
+//CORE MODULE
+angular.module('exampleApp',['controllers']);
+
+angular.module('controllers',[]).controller('app_ctrl',['$scope',function($scope){
+  $scope.O = [];
+  $scope.halt = false; //should the loop halt?
+  var running = false; //is loop running?
+  
+  function updateData(){
+ 	running = true;
+	var o = []; //a new array, to be assigned to $scope.O
+    var i = Math.round(10*Math.random()); //# of elements to be assigned
+    //add new elements to o
+    for(var m=0; m<i; m++){
+      var n = Math.random();
+      o.push({
+        a:"Decimal: "+(Math.round(n*1000)/1000),
+        b:"Text: "+(Math.round(n*1000)/10)+"%"
+      });
+    }
+    $scope.$apply(function(s){s.O = o;}) //assign updated data
+    if(!$scope.halt){setTimeout(updateData,500)}
+    else{running = false;}
+  }
+  //initialize first loop
+  running = true;
+  setTimeout(updateData,20);
+
+  $scope.$watch("halt",function(newVal,oldVal){
+  	if(newVal===oldVal){return}; //ignore check during initialization
+  	if(!newVal && !running){setTimeout(updateData,100);} //start up the loop (as long as it isn't already going)
+  });
+}]);
+</script>
+
+<body>
+<div ng-app="exampleApp" ng-controller="app_ctrl" id="ng-app">
+	<h1>Tests of ng-repeat</h1>
+	<p>This example uses an ng-repeat directive on a &#60;li&#62; element, which iterates over an array of objects. <br/>The array updates every 500ms and the directive works without error in all browsers except IE7.<br/>In IE7 the directive throws an error after the first update. This example runs angular 1.2.1.</p>
+	<input type="checkbox" ng-model="halt">Halt update</input>
+	<div>
+	  <div>
+	    <ul style="list-style-type:circle;">
+	      <li ng-repeat="o in O">{{o.a}}, {{o.b}}</li>
+	    </ul>
+	  </div>
+	</div>
+</div>
+</body>
+</html>
+
