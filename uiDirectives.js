@@ -4,7 +4,9 @@ angular.module('uiDirectives',['ngTouch'])
   return {
     template:'<div style="width:100%;height:50px;position:relative;top:0px;left:0px;">' +
                 //'<p ng-repeat="i in metros">{{i.nm}}</p>' +
-                '<div style="width:100%;height:50px;background:blue;position:relative;top:0px;left:0px;"></div>' + 
+                '<div style="width:100%;height:50px;background:blue;position:relative;top:0px;left:0px;">'+
+                  '<p style="color:white">Is this a touch device: {{touch.istouch}}<br />Is this an iOS device: {{touch.isios}}</p>'+
+                '</div>' + 
              '</div>',
     replace:true,
     scope:{metros:"="},
@@ -14,15 +16,16 @@ angular.module('uiDirectives',['ngTouch'])
         var menu = i.find('div')[0];
         var wrapperTop = wrapper.getBoundingClientRect().top;
         var menuTop = menu.getBoundingClientRect().top
-        console.log("Wrapper top: "+wrapperTop+" menu top: "+menuTop);
+        //console.log("Wrapper top: "+wrapperTop+" menu top: "+menuTop);
         if(wrapperTop < 5){angular.element(menu).css({"position":"fixed","top":"0px"})}
         else{angular.element(menu).css({"position":"relative","top":"0px"})}
       }
 
-      var iOS = ($window.navigator.userAgent.match(/iPad|iPhone|iPod/) ? true : false);
-      var touchDevice = typeof $window.ontouchmove !== 'undefined' || typeof $window.navigator.maxTouchPoints !== 'undefined';
+      s.touch = {
+        isios:($window.navigator.userAgent.match(/iPad|iPhone|iPod/) ? true : false),
+        istouch:typeof $window.ontouchmove !== 'undefined' || typeof $window.navigator.maxTouchPoints !== 'undefined'
+      }
 
-      console.log("Is a touch device: "+touchDevice+" // Is an iOS device: "+iOS);
 
       $window.onscroll = function(){
         metroPos();
