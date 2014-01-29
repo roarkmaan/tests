@@ -26,9 +26,12 @@ angular.module('uiDirectives',['ngTouch'])
         istouch:typeof $window.ontouchmove !== 'undefined' || typeof $window.navigator.maxTouchPoints !== 'undefined'
       }
 
+      if(s.touch.isios || !s.touch.istouch){
+        $window.onscroll = metroPos;
+      }
 
-      $window.onscroll = function(){
-        metroPos();
+      if(s.touch.isios){
+        $window.ontouchmove = metroPos;
       }
       
     }
