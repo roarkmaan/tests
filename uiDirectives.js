@@ -20,6 +20,8 @@ angular.module('uiDirectives',['ngTouch'])
       }
       metroPos();
 
+      console.log("MaxTouchPoints: " + $window.navigator.maxTouchPoints);
+
       if(typeof $window.ontouchmove !== 'undefined'){alert("Touch device")}
 
       $window.onscroll = function(){
