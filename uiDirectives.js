@@ -18,11 +18,11 @@ angular.module('uiDirectives',['ngTouch'])
         if(wrapperTop < 5){angular.element(menu).css({"position":"fixed","top":"0px"})}
         else{angular.element(menu).css({"position":"relative","top":"0px"})}
       }
-      metroPos();
 
-      console.log("MaxTouchPoints: " + $window.navigator.maxTouchPoints);
+      var iOS = ($window.navigator.userAgent.match(/iPad|iPhone|iPod/) ? true : false);
+      var touchDevice = typeof $window.ontouchmove !== 'undefined' || typeof $window.navigator.maxTouchPoints !== 'undefined';
 
-      if(typeof $window.ontouchmove !== 'undefined'){alert("Touch device")}
+      console.log("Is a touch device: "+touchDevice+" // Is an iOS device: "+iOS);
 
       $window.onscroll = function(){
         metroPos();
