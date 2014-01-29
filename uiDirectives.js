@@ -1,4 +1,4 @@
-angular.module('uiDirectives',[])
+angular.module('uiDirectives',['ngTouch'])
 
 .directive('metroMenu', ['$window',function($window){
   return {
@@ -19,6 +19,9 @@ angular.module('uiDirectives',[])
         else{angular.element(menu).css({"position":"relative","top":"0px"})}
       }
       metroPos();
+
+      if(typeof $window.ontouchmove !== 'undefined'){alert("Touch device")}
+
       $window.onscroll = function(){
         metroPos();
       }
