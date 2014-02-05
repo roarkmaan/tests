@@ -111,7 +111,7 @@ angular.module('services',['uiDirectives'])
 }]);	
 
 //Get asset
-angular.module('services').controller('testCtrl',['getData','getMetros','$scope',function(getData,gm,$scope){
+angular.module('services').controller('testCtrl',['getData','getMetros','$scope','$http',function(getData,gm,$scope,$http){
 	/*var a = $scope.a = getData({base:"http://127.0.0.1:5000",misc:"dude",id:"var2"});
 	a.par("byfilters",{race:"B",sex:"M"});
 	a.par("geo","M10140").par("catpro","CleanEcon").par("id","var200").par("by",["race","sex"]).par("dates",[1990,2000,2010]);
@@ -120,11 +120,33 @@ angular.module('services').controller('testCtrl',['getData','getMetros','$scope'
 	$scope.data = null;
 	$scope.$watch("a",function(n,o){$scope.data = a.data;console.log(n)},true)*/
 
-	$scope.aa = gm(false,$scope);
-	$scope.$watch('aa',function(n,o){
-		console.log(n);
+	$scope.metros = gm(true,$scope);
+	$scope.selectedMetro = $scope.metros.closest[0].gcode;
+	$scope.selectedMetroName = null;
+	$scope.$watch('metros',function(n,o){
+		$scope.selectedMetro = $scope.metros.closest[0].gcode;
 	},
 	true)
+
+	$scope.$watch('selectedMetro',function(n,o){
+		$scope.selectedMetroName = $scope.metros.lookup[n].nm;
+		$scope.selectedMetroCity = $scope.metros.lookup[n].city;
+	})
+
+	$scope.section1 = {
+		title:"Section 1 Title",
+		text:["Lorem ipsum dolor sit amet, consectetur adipiscing elit.","Quisque quis neque quis nisl pretium ultricies. Suspendisse et semper nisi, eu dignissim lorem."],
+		point0:{title:"Data Point #1",points:[{head:"HEADER",value:"52.5%",foot:""},{head:"HEADER",value:"22.5%",foot:"FOOTER 2"}]},
+		point1:{title:"Data Point #2",points:[{head:"HEADER",value:"X2.5%",foot:""},{head:"HEADER",value:"2X.5%",foot:"FOOTER 2"}]}
+	}
+
+	$http.get("/Brookings/Dashboards/app/angular/data/YWI.json")
+		 .success(function(a,b,headers,config){
+		 	$scope.about = a;
+		 })
+		 .error(function(data, status, headers, config){
+		 	$scope.about = {"text":"The documentation is not available at this time.","weight":"normal"}
+		 });
 
 	$scope.var1 = 1;
 	$scope.var2 = 2;
@@ -134,6 +156,12 @@ angular.module('services').controller('testCtrl',['getData','getMetros','$scope'
 		var2 = 200;
 	});
 
+	$scope.tableData = [["Col A","Col B","Col C"],["Hello","1",2],["Goodbye","1",8],["THIRD",3,4,5],["FOURTH",6,7,8]];
+
+	
+	
+	/*$scope.$watch('selectedMetro',function(n,o){console.log("Selected: "+n+" "+o)});
+
 	console.log("Scope vars are still unchanged: " + $scope.var1 + ", " + $scope.var2)
 	console.log("Above approach just created two globals: " + var1 + ", " + var2)
 
@@ -141,13 +169,13 @@ angular.module('services').controller('testCtrl',['getData','getMetros','$scope'
 	$scope.$eval(function(scope){
 		scope.var1 = 100;
 		scope.var2 = 200;
-	});
+	});*/
 
 	//with the angular expression form ($apply passes to $eval) -- you can edit props on scope directly without dot notation
-	setTimeout(function(){$scope.$apply('var1=999;var2=9999');},1500)
+	//setTimeout(function(){$scope.$apply('var1=999;var2=9999');},1500)
 
-	$scope.$watch('var1',function(){console.log($scope.var1)});
-	$scope.$watch('var2',function(){console.log($scope.var2)});
+	//$scope.$watch('var1',function(){console.log($scope.var1)});
+	//$scope.$watch('var2',function(){console.log($scope.var2)});
 
 	//var bb = gm();
 
@@ -175,6 +203,7 @@ angular.module('services').factory('getMetros',[function(){
   	
   	var __return__ = {};
   	__return__.success = 0; //-1==failure, 1==success, 0==default
+  	__return__.lookup = {}; //provide data in a dictionary
 
   	//narrow the universe of metros, if necessary
   	if(!top100){var __metros__ = metros;}
@@ -188,9 +217,14 @@ angular.module('services').factory('getMetros',[function(){
 	  	}
   	}
 
+  	for(var i=0;i<metros.length;i++){
+  		__return__.lookup[metros[i].gcode] = metros[i];
+  	}
+
+
   	__return__.metros = __metros__; //universe of metros, defined above
   	__return__.loc = {lon:null,lat:null}; //user lat/lon
-  	__return__.closest = null; //hold an array of metro areas sorted by distance from user location
+  	__return__.closest = [{gcode:__metros__[0].gcode, city:__metros__[0].city, d:0}]; //hold an array of metro areas sorted by distance from user location
 
 	function setPosition(position){
 		scopeObject.$apply(function(arg){

@@ -6,7 +6,8 @@
   <script type="text/javascript" src="angularmin.js"></script>
   <script type="text/javascript" src="ngServices.js"></script>
   <script type="text/javascript" src="uiDirectives.js"></script>
-  <script type="text/javascript" src="angularTouch.js"></script>
+  <script type="text/javascript" src="libServices.js"></script>
+  <link rel="stylesheet" href="dashboard.css"></link>
 </head>
 <body>
 
@@ -14,12 +15,47 @@
 <div ng-app="services" id="ng-app">
 
 	<div ng-controller="testCtrl" style="">
-	  <p ng-repeat="i in [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0] track by $index">{{i}}</p>
-	  <div style="width:100%;height:100px">
-	  	<div metro-menu metros="aa.metros"></div>
-	  </div>
-	  	  <p ng-repeat="i in [1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8,9,0] track by $index">{{i}}</p>
+	  
+		<div class="onTop" style="width:100%;">
+			<div geo-menu geos="metros.metros" thisgeo="selectedMetro" about="about"></div>
+		</div>
+
+		<div flex-wrapper>
+			<p style="font-size:11px;text-transform:uppercase;">Data For</p>
+			<h2>{{selectedMetroName}}</h2>
+		</div>
+
+		<div wrapper-v tytl="section1.title" text="section1.text">
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point0"> </div>
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point1"> </div>
+		</div>
+
+				<div wrapper-v tytl="section1.title" text="section1.text">
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point0"> </div>
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point1"> </div>
+		</div>
+
+				<div wrapper-v tytl="section1.title" text="section1.text">
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point0"> </div>
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point1"> </div>
+		</div>
+
+				<div wrapper-v tytl="section1.title" text="section1.text">
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point0"> </div>
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point1"> </div>
+		</div>
+
+		<div wrapper-v tytl="section1.title" text="section1.text">
+			<div class="dPoint" w="170px" h="150px" pad="20px" data="section1.point0"> </div>
+		</div>
+
+		<div wrapper-h tytl="section table" text="section1.text" w="350px">
+			<div table-card data="tableData" w="300px"></div>
+		</div>
+
 	</div>
+
+	<div auto-layout></div>
 
 </div>
 

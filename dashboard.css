@@ -1,0 +1,70 @@
+/*clearfix*/
+#ng-app .grouping:after {
+  content: "";
+  display: table;
+  clear: both;
+  border:none;
+  background:none;
+  background-image:none;
+}
+
+/*http://jsfiddle.net/Z8BTU/*/
+
+/*Prevent highlighting on elements like p acting as buttons*/
+#ng-app .disable-select {
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+}
+
+#ng-app body{
+	font-size:16px;
+	font-family:arial,sans,helvetica;
+	padding:0px;
+	margin:0px;
+	border:none;
+}
+
+/*Setting base sizes and colors for text elements*/
+#ng-app p, #ng-app select, #ng-app h1, #ng-app h2, #ng-app h3, #ng-app h4, #ng-app table{font-family:arial,sans,helvetica;margin:0px;padding:0px;color:rgb(20,20,20);}
+#ng-app p, #ng-app table, #ng-app ul{font-size:16px;}
+#ng-app select{font-size:14px; /*Remove ugly down arrow in FF*/ -moz-appearance: none; text-indent: 0.01px; text-overflow: '';}
+
+
+#ng-app div{position:relative;left:0px;top:0px;z-index:0;margin:0px;padding:0px;}
+#ng-app .onTop{z-index:1000000;}
+
+
+
+#ng-app table{
+	border-collapse:collapse;
+}
+
+#ng-app table td{
+	padding:10px 6px 3px 6px;
+	font-size:.85em;
+}
+
+/*COLORS*/
+#ng-app .blueBar{background-image:none;background-color:rgb(33,114,222);}
+#ng-app .blueBrook{background-image:none;background-color:rgb(5,55,105);}
+
+
+/*@media rules & queries*/
+@media print{
+	#ng-app select {color:rgb(5,55,105);font-size:1.5em;font-weight:bold;width:100%;}
+	#ng-app .dPoint {border:1px solid rgb(5,55,105);}
+}
+
+@media (max-width:600px){
+	#ng-app .thirty100{max-width:90%;}
+}
+
+@media (min-width:600px){
+	#ng-app .thirty100{max-width:30%;}
+}
+
+/*
+Classes with naming convention .numberXXX where x is a number refer to classes that are number percent or xxx percent wide
+*/
