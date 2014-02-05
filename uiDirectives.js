@@ -76,7 +76,7 @@ angular.module('uiDirectives').directive('geoMenu', ['$window',function($window)
 angular.module('uiDirectives').directive('dPoint', ['$timeout',function($timeout){
   return {
     template:'<div class="grouping" style="width:auto;float:left;position:relative;top:0px;left:0px;background:rgb(230,230,230);margin:0px 15px 15px 0px;">' +
-                '<div class="grouping" style="min-width:{{w}};min-height:{{h}};padding:{{pad}};float:left;">' +
+                '<div class="grouping" ng-style="styles" style="float:left;">' +
                  '<p style="float:left;color:rgb(100,100,100)">{{data.title}}</p>' +
                  '<div style="float:right;clear:both;width:auto;" ng-repeat="d in data.points" ng-init="last($last)">' +
                    '<p style="float:right;clear:both;font-size:0.75em;text-transform:uppercase;color:rgb(100,100,100);margin-top:15px;margin-left:2px;">{{d.head}}</p>' +
@@ -94,6 +94,8 @@ angular.module('uiDirectives').directive('dPoint', ['$timeout',function($timeout
       var layer1 = i.find('div')[0];
       var width = parseInt(s.w);
       var padding = parseInt(s.pad);
+      s.styles = {"min-width":s.w,"min-height":s.h,"padding":s.pad};
+      //console.log(s.styles);
 
 
       //determine width of inner div
