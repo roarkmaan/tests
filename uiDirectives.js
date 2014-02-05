@@ -120,10 +120,10 @@ angular.module('uiDirectives').directive('dPoint', ['$timeout',function($timeout
 //This directive is able to wrap any data element which will be transcluded in
 angular.module('uiDirectives').directive('wrapperV', ['$timeout',function($timeout){
   return {
-    template:'<div class="grouping" style="float:left;margin:10px 40px 20px 10px;page-break-inside:avoid;width:auto;">' +
+    template:'<div class="grouping" style="float:left;margin:10px 40px 35px 10px;page-break-inside:avoid;width:auto;">' +
                 '<div class="blueBar" style="width:22px;height:22px;position:absolute;top:0px;left:0px;"></div>'+
                 '<div style="margin-left:35px;" class="grouping">'+
-                  '<div ng-style="maxWidth()" style="min-height:35px;width:100%;float:left;margin-bottom:15px;" class="grouping sectionText">' +
+                  '<div ng-style="maxWidth()" style="min-height:35px;width:100%;margin-bottom:15px;" class="grouping sectionText">' +
                     '<div class="grouping">' +
                       '<p style="line-height:1em;font-size:1em;font-weight:bold;margin-top:6px;margin-bottom:10px;vertical-align:bottom;">{{tytl}}</p>' + 
                       '<p ng-repeat="t in text track by $index">{{t}}</p>' + 
