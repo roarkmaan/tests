@@ -9,7 +9,7 @@ angular.module('uiDirectives').directive('geoMenu', ['$window',function($window)
                 //'<p ng-repeat="i in metros">{{i.nm}}</p>' +
                 '<div class="blueBar" style="float:left;width:100%;height:auto;min-height:60px;background:rgb(33,114,222);position:relative;top:0px;left:0px;">'+
                   '<div style="margin:18px 20px 0px 13px;padding:3px 3px 10px 3px;float:left;" class="grouping">' +  
-                    '<select style="float:left;padding:5px 6px 1px 6px;margin:0px 15px 0px 0px;height:2em;background:#ffffff;background-image:none;border:none;border-radius:3px;outline:none;position:relative;" ng-model="thisgeo" ng-options="m.gcode as m.nm for m in geos"> </select>'+
+                    '<select style="float:left;padding:5px 6px 3px 6px;margin:0px 15px 0px 0px;height:2em;background:#ffffff;background-image:none;border:none;border-radius:3px;outline:none;position:relative;" ng-model="thisgeo" ng-options="m.gcode as m.nm for m in geos"> </select>'+
                     '<p class="disable-select" style="float:left;white-space:nowrap;cursor:pointer;margin:.75em 0px .25em 12px;font-size:13px;color:#ffffff" ng-click="showAbout()">About the data <span style="font-family:Courier,monospace;font-weight:bold">[+]</span></p>' +
                   '</div>' +
                   '<div style="position:absolute;top:100%;height:2px;width:100%;background:#ffffff;overflow:visible">'+
@@ -122,7 +122,7 @@ angular.module('uiDirectives').directive('wrapperV', ['$timeout',function($timeo
   return {
     template:'<div class="grouping" style="float:left;margin:10px 40px 20px 10px;page-break-inside:avoid;width:auto;">' +
                 '<div class="blueBar" style="width:22px;height:22px;position:absolute;top:0px;left:0px;"></div>'+
-                '<div style="margin-left:35px;float:left;" class="grouping">'+
+                '<div style="margin-left:35px;" class="grouping">'+
                   '<div ng-style="maxWidth()" style="min-height:35px;width:100%;float:left;margin-bottom:15px;" class="grouping sectionText">' +
                     '<div class="grouping">' +
                       '<p style="line-height:1em;font-size:1em;font-weight:bold;margin-top:6px;margin-bottom:10px;vertical-align:bottom;">{{tytl}}</p>' + 
