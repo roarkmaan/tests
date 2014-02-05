@@ -14,7 +14,7 @@ angular.module('uiDirectives').directive('geoMenu', ['$window',function($window)
                   '</div>' +
                   '<div style="position:absolute;top:100%;height:2px;width:100%;background:#ffffff;overflow:visible">'+
                     '<div ng-mouseleave="showAbout()" style="width:98%;min-height:150px;max-height:380px;overflow-y:auto;background:#ffffff;border:1px solid rgb(33,114,222);border-width:0px 0px 1px 0px;display:none;padding:8px 1% 0px 1%;margin:0px">'+
-                      '<p ng-repeat="p in about" style="font-weight:{{p.weight}};font-size:12px;line-height:1.4em;margin:10px 15px 0px 15px;">{{p.text}}</p>' +
+                      '<p ng-repeat="p in about" ng-style="fontWeight(p.weight)" style="font-size:12px;line-height:1.4em;margin:10px 15px 0px 15px;">{{p.text}}</p>' +
                       '<div style="width:100%;height:20px;background-image:none;background:#ffffff;"></div>' +
                     '</div>'+
                   '</div>'+
@@ -30,9 +30,8 @@ angular.module('uiDirectives').directive('geoMenu', ['$window',function($window)
       var about = angular.element(i.find('div')[3]);
       var plusminus = angular.element(i.find('span')[0]);
 
-      s.bolded = function(bolded){
-        if(bolded=="bold"){return "bold"}
-        else{return "normal"}
+      s.fontWeight = function(weight){
+        return {"font-weight":weight}
       }
 
       s.showAbout = function(){
@@ -124,7 +123,7 @@ angular.module('uiDirectives').directive('wrapperV', ['$timeout',function($timeo
     template:'<div class="grouping" style="float:left;margin:10px 40px 20px 10px;page-break-inside:avoid;width:auto;">' +
                 '<div class="blueBar" style="width:22px;height:22px;position:absolute;top:0px;left:0px;"></div>'+
                 '<div style="margin-left:35px;float:left;" class="grouping">'+
-                  '<div style="min-height:35px;width:100%;float:left;margin-bottom:15px;max-width:{{maxWidth()}}" class="grouping sectionText">' +
+                  '<div ng-style="maxWidth()" style="min-height:35px;width:100%;float:left;margin-bottom:15px;" class="grouping sectionText">' +
                     '<div class="grouping">' +
                       '<p style="line-height:1em;font-size:1em;font-weight:bold;margin-top:6px;margin-bottom:10px;vertical-align:bottom;">{{tytl}}</p>' + 
                       '<p ng-repeat="t in text track by $index">{{t}}</p>' + 
@@ -152,7 +151,7 @@ angular.module('uiDirectives').directive('wrapperV', ['$timeout',function($timeo
           var r = ngMain[i].getBoundingClientRect();
           tot = tot + (r.right-r.left);
         }
-        return((tot+35)+"px");
+        return({"max-width":(tot+35)+"px"});
       }
 
       $timeout(function(){return "ANOTHER $DIGEST"},4000);
@@ -221,9 +220,9 @@ angular.module('uiDirectives').directive('flexWrapper', [function(){
 angular.module('uiDirectives').directive('tableCard', [function(){
   return {
     template:'<div class="grouping" style="margin:0px 15px 15px 0px;float:left;">' +
-                '<table style="min-width:{{w}};"><thead></thead><tbody>' +
+                '<table ng-style="mw"><thead></thead><tbody>' +
                   '<tr ng-init="rowNum=$index" ng-repeat="r in data">' +
-                    '<td ng-repeat="c in r" style="{{tdStyle(rowNum,$index)}}">{{c}}</td>' +
+                    '<td ng-repeat="c in r" ng-style="tdStyle(rowNum,$index)">{{c}}</td>' +
                   '</tr>' +
                 '</tbody></table>' +
              '</div>',
@@ -233,12 +232,13 @@ angular.module('uiDirectives').directive('tableCard', [function(){
     link:function(s,i,a){
       var wrapper = i[0];
       s.tdStyle = function(row,index){
-        var r = "";
-        if(index==0 || row==0){r=r+"font-weight:bold;"}
-        else{r=r+"color:rgb(5,55,105);"}
-        if(row==0){r=r+"background-color:rgb(220,220,220)"};
+        var r = {};
+        if(index==0 || row==0){r["font-weight"]="bold"}
+        else{r["color"] = "rgb(5,55,105)"}
+        if(row==0){r["background-color"]="rgb(220,220,220)"};
         return r;
       }
+      s.mw = {"min-width":s.w}
       //set a max width based on width of transclusion
     }
   }
